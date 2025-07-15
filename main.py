@@ -66,3 +66,19 @@ while True:
     elif env[i, j] == 1:
         print("Reached dead state")
         break
+
+policy_table = np.full((4, 4),'', dtype = object)
+
+for i in range(env.shape[0]):
+    for j in range(env.shape[1]):
+        if env[i, j] == 1:
+            policy_table[i, j] = 'X' 
+        elif env[i, j] == 2:
+            policy_table[i, j] = 'G'
+        else:
+            best_action_index = np.argmax(q_table[i, j])
+            policy_table[i, j] = actions[best_action_index]
+
+print("\nPolicy Table:")
+for row in policy_table:
+    print('\t'.join(row))
